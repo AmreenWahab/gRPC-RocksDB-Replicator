@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+message Request {
+    string key = 1;
+    string value = 2;
+}
+
+message Response {
+    string key = 1; 
+    string value = 2;
+}
+
+message GetAndDeleteRequest {
+    string key = 1;
+}
+
+message SlaveResponse {
+    string action = 1;
+    string key = 2;
+    string value = 3;
+}
+
+message SlaveRequest {  
+}
+
+
+service Replicator {
+
+   rpc slaveConnector(SlaveRequest) returns (stream SlaveResponse) {}
+   rpc put(Request) returns (Response) {}
+   rpc delete(GetAndDeleteRequest) returns (Response) {}
+   rpc get(GetAndDeleteRequest) returns (Response) {}
+}
